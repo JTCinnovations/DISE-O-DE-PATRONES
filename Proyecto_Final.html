@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyecto Final — SOLID, GoF y GRASP (Java, plataforma libre)</title>
+  <style>
+    :root{
+      --bg:#0f172a;         /* slate-900 */
+      --card:#111827;       /* gray-900 */
+      --muted:#9ca3af;      /* gray-400 */
+      --text:#e5e7eb;       /* gray-200 */
+      --acc:#22d3ee;        /* cyan-400 */
+      --acc2:#a78bfa;       /* violet-400 */
+      --good:#10b981;       /* emerald-500 */
+      --warn:#f59e0b;       /* amber-500 */
+      --bad:#ef4444;        /* red-500 */
+      --chip:#1f2937;       /* gray-800 */
+      --code:#0b1220;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0b1020 0%, #0f172a 100%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;color:var(--text);line-height:1.5}
+    .wrap{max-width:1100px;margin:40px auto;padding:0 20px 80px}
+    header{position:relative;padding:32px;border-radius:18px;background:radial-gradient(1200px 500px at 10% -20%, rgba(34,211,238,.15), transparent),linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);backdrop-filter: blur(6px);box-shadow:0 20px 40px rgba(0,0,0,.45)}
+    h1{font-size:clamp(28px,4vw,44px);margin:0 0 6px}
+    .subtitle{color:var(--muted);margin:0 0 18px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .badge{padding:6px 10px;border-radius:999px;background:var(--chip);border:1px solid rgba(255,255,255,.08);font-size:12px;letter-spacing:.2px}
+    .grid{display:grid;gap:18px}
+    @media(min-width:900px){.grid{grid-template-columns: 1.2fr .8fr}}
+    section{margin-top:28px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px}
+    h2{font-size:clamp(20px,2.6vw,28px);margin:0 0 10px}
+    h3{font-size:clamp(18px,2.2vw,22px);margin:18px 0 6px}
+    p.lead{color:#d1d5db;margin:6px 0 12px}
+    ul,ol{margin:6px 0 12px 18px}
+    li{margin:4px 0}
+    .toc a{display:block;padding:8px 10px;margin:8px 0;border-radius:10px;text-decoration:none;color:var(--text);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+    .toc a:hover{border-color:rgba(34,211,238,.6);box-shadow:0 0 0 3px rgba(34,211,238,.15) inset}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+    .chip{background:var(--chip);border:1px solid rgba(255,255,255,.08);padding:6px 10px;border-radius:999px;font-size:12px}
+    .callout{border-left:4px solid var(--acc);padding:10px 12px;background:rgba(34,211,238,.06);border-radius:8px}
+    .warn{border-left-color:var(--warn);background:rgba(245,158,11,.06)}
+    .good{border-left-color:var(--good);background:rgba(16,185,129,.07)}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;margin:10px 0;background:rgba(255,255,255,.02)}
+    th,td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}
+    th{background:rgba(255,255,255,.04);text-align:left}
+    tr:last-child td{border-bottom:none}
+    code,kbd,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    pre{background:var(--code);color:#cbd5e1;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.06);overflow:auto}
+    .checklist input{accent-color:var(--acc)}
+    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.5);font-size:12px}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .kpi .item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:12px;text-align:center}
+    .item .big{font-weight:700;font-size:22px}
+    .footer{opacity:.7;margin-top:26px;font-size:12px}
+    a{color:var(--acc)}
+    .tag{color:var(--acc2)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Proyecto Final — SOLID, GoF y GRASP</h1>
+      <p class="subtitle">Java • Plataforma libre (escritorio, CLI, móvil, microservicios, IoT, batch)</p>
+      <div class="badges">
+        <span class="badge">Principios SOLID</span>
+        <span class="badge">Patrones GoF (Creacionales, Estructurales, Comportamiento)</span>
+        <span class="badge">GRASP</span>
+        <span class="badge">Pruebas + Documentación + Demo</span>
+      </div>
+      <div class="kpi">
+        <div class="item"><div class="big">6–8</div><div>semanas de trabajo</div></div>
+        <div class="item"><div class="big">≥6</div><div>patrones GoF aplicados</div></div>
+        <div class="item"><div class="big">100</div><div>puntos (rúbrica)</div></div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card toc">
+        <h2>Índice rápido</h2>
+        <a href="#objetivo">1) Objetivo</a>
+        <a href="#alcance">2) Alcance mínimo</a>
+        <a href="#diseno">3) Requisitos de diseño (SOLID + GoF + GRASP)</a>
+        <a href="#arquitectura">4) Arquitecturas sugeridas por tipo de sistema</a>
+        <a href="#calidad">5) Calidad y pruebas</a>
+        <a href="#entregables">6) Entregables</a>
+        <a href="#rubrica">7) Rúbrica (100 pts)</a>
+        <a href="#check">8) Checklist</a>
+        <a href="#ideas">9) Ideas de proyectos (no web)</a>
+        <a href="#plantillas">10) Plantillas de evidencia</a>
+        <a href="#avanzados">11) Conceptos avanzados sugeridos</a>
+      </section>
+
+      <section class="card" id="objetivo">
+        <h2>1) Objetivo</h2>
+        <p class="lead">Construir un <strong>sistema en Java</strong> que resuelva un problema real y demuestre dominio de <strong>SOLID</strong>, <strong>Patrones GoF</strong> y <strong>GRASP</strong>, con arquitectura clara, pruebas y documentación.</p>
+        <div class="chips">
+          <span class="chip">Java 17+</span>
+          <span class="chip">Plataforma libre</span>
+          <span class="chip">Evidencias de diseño</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" id="alcance">
+      <h2>2) Alcance mínimo (requisitos funcionales)</h2>
+      <ul>
+        <li>Un <strong>flujo de negocio completo</strong> (inicio → procesamiento → salida/reportes).</li>
+        <li><strong>Gestión de entidades</strong> (crear/leer/actualizar/borrar, al menos desde la lógica).</li>
+        <li><strong>Persistencia</strong> con repositorios claros (BD relacional/NoSQL/archivos/embebida).</li>
+        <li><strong>Interfaz</strong> a elección: Escritorio (JavaFX), CLI (picocli), Android, Microservicios, IoT, Batch/ETL.</li>
+      </ul>
+      <div class="callout good"><strong>Consejo:</strong> privilegia un alcance realista y bien probado sobre un sistema enorme sin evidencias de diseño.</div>
+    </section>
+
+    <section class="card" id="diseno">
+      <h2>3) Requisitos de diseño</h2>
+      <h3>3.1 SOLID (obligatorio: los cinco)</h3>
+      <ul>
+        <li><strong>SRP</strong>: una sola razón de cambio por clase.</li>
+        <li><strong>OCP</strong>: extensión por nuevas clases/estrategias, sin modificar el núcleo.</li>
+        <li><strong>LSP</strong>: subtipos sustituibles por su supertipo sin romper contratos.</li>
+        <li><strong>ISP</strong>: interfaces pequeñas, específicas por cliente.</li>
+        <li><strong>DIP</strong>: depender de <em>abstracciones</em>; usar inyección de dependencias.</li>
+      </ul>
+
+      <h3>3.2 Patrones GoF (mínimos)</h3>
+      <table>
+        <thead><tr><th>Categoría</th><th>Mínimo</th><th>Ejemplos</th></tr></thead>
+        <tbody>
+          <tr><td>Creacionales</td><td>≥ 2</td><td>Factory Method, Abstract Factory, Builder, Prototype, Singleton (evitar abuso)</td></tr>
+          <tr><td>Estructurales</td><td>≥ 2</td><td>Adapter, Facade, Composite, Decorator, Proxy, Bridge</td></tr>
+          <tr><td>Comportamiento</td><td>≥ 2</td><td>Strategy, Observer, Command, State, Template Method, Chain of Responsibility, Memento</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.3 GRASP (≥2)</h3>
+      <p>Recomendados: Controller, Information Expert, Creator, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication.</p>
+
+      <div class="callout warn"><strong>Evita antipatrones:</strong> God Class, Feature Envy, exceso de condicionales anidados, abuso de Singleton, duplicación de lógica.</div>
+    </section>
+
+    <section class="card" id="arquitectura">
+      <h2>4) Arquitecturas sugeridas por tipo de sistema</h2>
+      <table>
+        <thead><tr><th>Tipo</th><th>Stack sugerido</th><th>Patrones habituales</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Escritorio (JavaFX)</td>
+            <td>JavaFX + JPA (Hibernate) + H2/SQLite</td>
+            <td>Observer (eventos UI), Facade (servicios), Strategy (validaciones), Builder (objetos complejos)</td>
+          </tr>
+          <tr>
+            <td>CLI</td>
+            <td>picocli + H2/SQLite/archivos</td>
+            <td>Command (acciones), Template Method (rutinas), Adapter (formatos), Chain (validaciones)</td>
+          </tr>
+          <tr>
+            <td>Microservicios</td>
+            <td>Spring Boot 3 + JPA + Postgres/MySQL + (Kafka/Rabbit opc)</td>
+            <td>Strategy/Factory (reglas), Proxy (circuit breaker), Observer (eventos), Facade (orquestación)</td>
+          </tr>
+          <tr>
+            <td>Android</td>
+            <td>MVVM (ViewModel/Lifecycle), Room/Retrofit</td>
+            <td>Observer, Repository, Adapter, State (pantallas/flows)</td>
+          </tr>
+          <tr>
+            <td>IoT/Embebido</td>
+            <td>Drivers/simuladores + almacenamiento ligero</td>
+            <td>Abstract Factory (familias de sensores), Bridge (HW vs protocolo), Observer (telemetría), Memento (config)</td>
+          </tr>
+          <tr>
+            <td>Batch/ETL</td>
+            <td>Jobs programados (Quartz/cron) + conectores</td>
+            <td>Template Method (pipeline), Strategy (transformación), Chain (validaciones), Adapter (fuentes)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="calidad">
+      <h2>5) Calidad y pruebas</h2>
+      <ul>
+        <li>Pruebas <strong>unitarias</strong> (JUnit 5 + Mockito) y al menos <strong>1–2 de integración</strong> (H2/SQLite o Testcontainers).</li>
+        <li>Cobertura significativa del flujo principal y de <strong>≥1 patrón por categoría</strong>.</li>
+        <li>Manejo de errores y <strong>logging</strong> (INFO/ERROR); datos semilla.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="entregables">
+      <h2>6) Entregables</h2>
+      <ol>
+        <li><strong>Código</strong> con <em>README</em> ejecutable.</li>
+        <li><strong>Documentación técnica</strong> (PDF/MD): arquitectura, tablas de evidencias (SOLID/GoF/GRASP), capturas o registros.</li>
+        <li><strong>Pruebas</strong> (cómo correrlas y breve reporte).</li>
+        <li><strong>Video demo</strong> (5–8 min).</li>
+        <li><strong>Presentación</strong> (8–12 diapositivas).</li>
+      </ol>
+    </section>
+
+    <section class="card" id="rubrica">
+      <h2>7) Rúbrica (100 pts)</h2>
+      <table>
+        <thead><tr><th>Criterio</th><th>Pts</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Funcionalidad y estabilidad</td><td>25</td><td>Flujo completo, persistencia, manejo de errores</td></tr>
+          <tr><td>Diseño SOLID</td><td>20</td><td>Evidencias claras de SRP/OCP/LSP/ISP/DIP</td></tr>
+          <tr><td>Patrones GoF</td><td>30</td><td>≥2 creacionales, ≥2 estructurales, ≥2 comportamiento aplicados correctamente</td></tr>
+          <tr><td>GRASP</td><td>10</td><td>≥2 bien justificados y mapeados</td></tr>
+          <tr><td>Pruebas + docs + demo</td><td>15</td><td>Tests útiles, documentación clara, video/pitch</td></tr>
+          <tr><td class="tag">Bonus</td><td>+5</td><td>Métricas (Sonar), Docker/CI, patrón extra bien argumentado</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card checklist" id="check">
+      <h2>8) Checklist de verificación</h2>
+      <ul>
+        <li><input type="checkbox" /> Flujo end-to-end funcionando</li>
+        <li><input type="checkbox" /> Evidencias de SRP, OCP, LSP, ISP, DIP</li>
+        <li><input type="checkbox" /> ≥2 creacionales, ≥2 estructurales, ≥2 comportamiento</li>
+        <li><input type="checkbox" /> ≥2 GRASP mapeados</li>
+        <li><input type="checkbox" /> Pruebas unitarias + integración</li>
+        <li><input type="checkbox" /> README + datos semilla + video demo</li>
+        <li><input type="checkbox" /> Tabla de antipatrones evitados</li>
+      </ul>
+    </section>
+
+    <section class="card" id="ideas">
+      <h2>9) Ideas de proyectos (no web) para inspirar</h2>
+      <ul>
+        <li><strong>Gestor de laboratorio (JavaFX):</strong> inventario, reservas, alertas <em>(Observer)</em>, perfiles <em>(Strategy)</em>, importación CSV <em>(Adapter)</em>, reportes <em>(Facade)</em>.</li>
+        <li><strong>Planificador de rutas offline (CLI):</strong> grafos, heurísticas <em>(Strategy/Template)</em>, exportes <em>(Adapter)</em>, “deshacer” <em>(Memento/Command)</em>.</li>
+        <li><strong>Monitor de producción (IoT):</strong> telemetría <em>(Observer)</em>, drivers <em>(Bridge)</em>, familias de sensores <em>(Abstract Factory)</em>, restauración de config <em>(Memento)</em>.</li>
+        <li><strong>Procesador ETL de facturas (Batch):</strong> pipeline <em>(Template Method)</em>, validaciones <em>(Chain of Responsibility)</em>, conectores <em>(Adapter)</em>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="plantillas">
+      <h2>10) Plantillas rápidas para evidencias</h2>
+      <h3 class="pill">10.1 Tabla de evidencias SOLID</h3>
+      <table>
+        <thead><tr><th>Principio</th><th>Clases/paquetes</th><th>Justificación</th><th>Enlace a código</th></tr></thead>
+        <tbody>
+          <tr><td>SRP</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>OCP</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>LSP</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>ISP</td><td>...</td><td>...</td><td>...</td></tr>
+          <tr><td>DIP</td><td>...</td><td>...</td><td>...</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="pill">10.2 Ficha por patrón (GoF/GRASP)</h3>
+      <table>
+        <thead><tr><th>Campo</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td>Contexto/Problema</td><td>Situación que motiva el patrón</td></tr>
+          <tr><td>Patrón</td><td>Nombre y categoría</td></tr>
+          <tr><td>Decisión</td><td>Por qué este patrón frente a alternativas</td></tr>
+          <tr><td>Participantes</td><td>Clases/interfaces y roles</td></tr>
+          <tr><td>Diagrama</td><td>UML simple (opcional)</td></tr>
+          <tr><td>Uso</td><td>Fragmento/test que lo ejercita</td></tr>
+          <tr><td>Resultado</td><td>Mejora en acoplamiento/cohesión/extensibilidad</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="avanzados">
+      <h2>11) Conceptos avanzados sugeridos (opcionales para subir nota)</h2>
+      <ul>
+        <li><strong>Reflexión en Java</strong> para descubrimiento dinámico de plugins (combinar con <em>Abstract Factory</em> + <em>Strategy</em>).
+          <pre><code class="language-java">// Descubrir estrategias por convención de paquete
+ServiceLoader&lt;PricingStrategy&gt; loader = ServiceLoader.load(PricingStrategy.class);
+for (PricingStrategy s : loader) {
+    System.out.println("Estrategia detectada: " + s.getClass().getSimpleName());
+}</code></pre>
+        </li>
+        <li><strong>Anotaciones personalizadas</strong> para validación declarativa (mini <em>framework</em> tipo Bean Validation) + <em>Template Method</em> para el pipeline de validación.
+          <pre><code class="language-java">@Target(ElementType.FIELD) @Retention(RetentionPolicy.RUNTIME)
+public @interface NotEmpty {}
+
+public abstract class ValidatorTemplate&lt;T&gt; {
+  public final void validate(T t) { pre(); doValidate(t); post(); }
+  protected void pre(){} protected void post(){}
+  protected abstract void doValidate(T t);
+}</code></pre>
+        </li>
+        <li><strong>Inyección de dependencias ligera</strong> (DIP) construida por el equipo (mini contenedor) para reforzar <em>OCP</em> y probar dobles de test.
+          <pre><code class="language-java">public class Container {
+  private final Map&lt;Class&lt;?&gt;, Object&gt; instances = new HashMap&lt;&gt;();
+  public &lt;T&gt; void bind(Class&lt;T&gt; type, T instance){ instances.put(type, instance); }
+  public &lt;T&gt; T get(Class&lt;T&gt; type){ return type.cast(instances.get(type)); }
+}</code></pre>
+        </li>
+        <li><strong>Event-Driven</strong> con <em>Observer</em> y <em>Domain Events</em> (asincronía simulada con colas en memoria).</li>
+        <li><strong>Patrones arquitectónicos</strong> (Hexagonal/Onion/Clean) y <strong>DTO/Mapper</strong> para aislar capas.</li>
+        <li><strong>Medición de calidad</strong> (métricas de complejidad, Sonar, Jacoco) y <strong>técnicas de refactor</strong> (Extract Class/Method, Replace Conditional with Polymorphism).</li>
+      </ul>
+      <div class="callout good"><strong>Tip:</strong> documenta cómo los conceptos avanzados refuerzan SOLID y reducen acoplamiento.</div>
+    </section>
+
+    <p class="footer">© 2025 • Proyecto Final de Diseño de Patrones — Entrega y sustentación según calendario del curso.</p>
+  </div>
+</body>
+</html>
